@@ -10,11 +10,12 @@
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 Servo doorServo;
 
-// ✅ Your authorized RFID card UID
+// ✅ Authorized RFID card UID
 byte allowedUID1[4] = {0xB9, 0x82, 0xD8, 0x05};
 
-int lockPos = 0;      // servo locked position
-int unlockPos = 90;   // servo unlocked position
+// Servo positions
+int lockPos = 0;       // locked position
+int unlockPos = 90;   // unlocked position
 
 void setup() {
   Serial.begin(9600);
@@ -22,22 +23,25 @@ void setup() {
   mfrc522.PCD_Init();
 
   doorServo.attach(SERVO_PIN);
-  doorServo.write(lockPos);
+  doorServo.write(lockPos);   // start locked
 
   pinMode(BUZZER_PIN, OUTPUT);
-  digitalWrite(BUZZER_PIN, LOW);
 
   Serial.println("Scan your RFID card...");
 }
 
 void loop() {
+  // Wait for card
   if (!mfrc522.PICC_IsNewCardPresent()) return;
   if (!mfrc522.PICC_ReadCardSerial()) return;
 
   bool match1 = true;
 
+  // Check UID
   for (byte i = 0; i < 4; i++) {
-    if (mfrc522.uid.uidByte[i] != allowedUID1[i]) match1 = false;
+    if (mfrc522.uid.uidByte[i] != allowedUID1[i]) {
+      match1 = false;
+    }
   }
 
   if (match1) {
@@ -46,18 +50,23 @@ void loop() {
     // Unlock servo
     doorServo.write(unlockPos);
 
-    // Passive buzzer beep for access allowed
-    tone(BUZZER_PIN, 1000, 500); // 1000 Hz, 0.5 sec
+    // Passive buzzer success beep
+    tone(BUZZER_PIN, 1000);
+    delay(500);
+    noTone(BUZZER_PIN);
 
-    delay(3000);                 // keep unlocked
-    doorServo.write(lockPos);    // lock again
+    delay(3000);               // keep unlocked
+    doorServo.write(lockPos);  // lock again
+
   } else {
     Serial.println("ACCESS DENIED ❌");
 
-    // Passive buzzer long beep for access denied
-    tone(BUZZER_PIN, 400, 800);  // 400 Hz, 0.8 sec
-    delay(800);                   // wait for beep to finish
+    // Passive buzzer error beep
+    tone(BUZZER_PIN, 400);
+    delay(800);
+    noTone(BUZZER_PIN);
   }
 
-  delay(1000); // wait before next scan
+  mfrc522.PICC_HaltA(); // stop reading
+  delay(1000);          // delay before next scan
 }
