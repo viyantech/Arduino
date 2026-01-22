@@ -1,6 +1,6 @@
 # 🗑️ Smart Dustbin using Obstacle sensor module 
 
-This project uses an **IR sensor** and a **servo motor** to automatically open and close a lid when a hand or object is detected. It’s ideal for **smart dustbins**, **touchless containers**, or **automation demos** 🤖
+This project uses an **IR Obstacle Avoidance Sensor Module** and a **servo motor** to automatically open and close a lid when a hand or object is detected. It’s ideal for **smart dustbins**, **touchless containers**, or **automation demos** 🤖
 
 ---
 
@@ -19,7 +19,7 @@ This project uses an **IR sensor** and a **servo motor** to automatically open a
 | Component                     | Quantity  |
 | ----------------------------- | --------- |
 | Arduino Uno / Nano            | 1         |
-| IR Sensor Module              | 1         |
+| IR Obstacle Avoidance Sensor Module              | 1         |
 | Servo Motor (SG90 or similar) | 1         |
 | Jumper Wires                  | As needed |
 | Breadboard (optional)         | 1         |
