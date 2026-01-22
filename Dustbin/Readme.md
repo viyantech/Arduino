@@ -6,7 +6,7 @@ This project uses an **IR Obstacle Avoidance Sensor Module** and a **servo motor
 
 ## 📌 How It Works (Overview)
 
-1. The **IR sensor** detects an object (like a hand).
+1. The **IR Obstacle Avoidance Sensor Module** detects an object (like a hand).
 2. When detected, the **servo motor rotates** to open the lid.
 3. The lid stays open for a few seconds.
 4. The servo then **closes the lid automatically**.
