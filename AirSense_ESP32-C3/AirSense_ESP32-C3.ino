@@ -7,7 +7,7 @@
 
 /* ================= WiFi ================= */
 const char* ssid = "WiFi-9427";
-const char* password = "33168432";
+const char* password = "12345678";
 
 /* ================= Time ================= */
 const char* ntpServer = "pool.ntp.org";
